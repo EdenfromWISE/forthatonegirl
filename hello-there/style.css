@@ -173,8 +173,9 @@ body {
 /* Language toggle button */
 .lang-toggle {
     position: absolute;
-    top: -15px;
-    right: -15px;
+    /* Place inside the card, not overlapping the border */
+    top: 12px;
+    right: 12px;
     background: #fff;
     color: #ff4181;
     border: 3px solid #ffcce0;
@@ -184,8 +185,17 @@ body {
     font-weight: 700;
     box-shadow: 0 6px 18px rgba(255, 107, 158, 0.12);
     transition: transform 0.15s ease, background 0.15s ease;
+    z-index: 20;
+    font-family: 'Nunito', 'Noto Sans', sans-serif;
 }
 
 .lang-toggle:hover {
     transform: translateY(-3px);
+}
+
+/* When the title is shown in Vietnamese, use a sans-serif that has full diacritics */
+.title.vi {
+    font-family: 'Nunito', 'Noto Sans', sans-serif;
+    /* Slight size adjustment so the Vietnamese title fits nicely */
+    font-size: 3rem;
 }

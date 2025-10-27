@@ -22,21 +22,21 @@ document.addEventListener('DOMContentLoaded', function() {
         "Never give up, gorgeous! You're stronger than you think! 💪",
     ];
     
-    // Vietnamese translations for the same spirit of messages
+    // Vietnamese translations with softer, more natural phrasing
     const messagesVi = [
-        "Ê cưng, bạn thật tuyệt vời! Cố lên nhé! 🔥",
-        "Nhớ rằng nụ cười của bạn làm sáng ngày hôm nay! 💖",
-        "Bạn tuyệt hơn những gì bạn nghĩ! 🌺",
-        "Nhắc nhẹ rằng bạn đang làm rất tốt, xinh đẹp nhé! ✨",
-        "Bạn xứng đáng nhận được mọi hạnh phúc trên đời! 🎀",
-        "Nỗ lực của bạn có giá trị hơn bạn tưởng tượng! 🌟",
+        "Bạn thật tuyệt — giữ vững nhé! 🔥",
+        "Nụ cười của bạn làm sáng cả ngày này! 💖",
+        "Bạn còn tuyệt hơn bạn tưởng đấy! 🌺",
+        "Nhắc nhẹ rằng bạn đang làm rất tốt, nhé? ✨",
+        "Bạn xứng đáng với mọi điều tốt đẹp! 🎀",
+        "Nỗ lực của bạn thật đáng quý! 🌟",
         "Đừng quên bạn thật đặc biệt và duy nhất! 💕",
-        "Hãy tự hào về bản thân! Bạn đang làm rất tốt! 💗",
-        "Không viên ngọc nào sáng hơn bạn! 💎",
-        "Hãy tỏa sáng như vì sao của riêng bạn! ⭐",
-        "Mình tin bạn, kể cả khi bạn chưa tin bản thân! 🤗",
-        "Dành chút thời gian để trân trọng những gì bạn đã đạt được! 💓",
-        "Đừng bỏ cuộc nhé, bạn mạnh mẽ hơn bạn nghĩ! ",
+        "Tự hào về bản thân nhé — bạn đang làm tốt! 💗",
+        "Không ai tỏa sáng hơn bạn! 💎",
+        "Tỏa sáng theo cách của riêng bạn! ⭐",
+        "Mình tin bạn, kể cả khi bạn còn hoài nghi! 🤗",
+        "Dành chút để nhìn lại và thấy mình đã tiến bộ nhé! 💓",
+        "Đừng bỏ cuộc — bạn mạnh mẽ hơn bạn nghĩ! 💪",
     ];
     
     let currentLang = 'en'; // 'en' or 'vi'
@@ -51,6 +51,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     let isFirstClick = true;
     
+    const titleEl = document.querySelector('.title');
+
+    // Ensure the language toggle shows the available target language on load
+    if (langToggle) langToggle.textContent = 'VI';
+
     // When greet button is clicked, switch to second card
     greetButton.addEventListener('click', () => {
         firstCard.classList.remove('active');
@@ -114,11 +119,14 @@ document.addEventListener('DOMContentLoaded', function() {
             langToggle.textContent = currentLang === 'en' ? 'VI' : 'EN';
 
             // Update static UI text
-            document.querySelector('.title').textContent = currentLang === 'en' ? 'Hello?' : 'Chào bạn?';
-            greetButton.textContent = currentLang === 'en' ? 'Click for a surprise! ♥' : 'Nhấn để bất ngờ! ♥';
+            titleEl.textContent = currentLang === 'en' ? 'Hello?' : 'Chào bạn?';
+            // Use a font that supports Vietnamese diacritics when in Vietnamese
+            titleEl.classList.toggle('vi', currentLang === 'vi');
+
+            greetButton.textContent = currentLang === 'en' ? 'Click for a surprise! ♥' : 'Nhấn để nhận bất ngờ! ♥';
             nextMessageButton.textContent = currentLang === 'en' ? 'Another! ♥' : 'Thêm nữa! ♥';
             const dateBtn = document.querySelector('.date-button');
-            if (dateBtn) dateBtn.textContent = currentLang === 'en' ? "Uhhh... I have a question 👉👈" : "Ừm... Mình muốn hỏi điều này 👉👈";
+            if (dateBtn) dateBtn.textContent = currentLang === 'en' ? "Uhhh... I have a question 👉👈" : "Ừm... Mình muốn hỏi bạn một điều 👉👈";
 
             // Reset messages for the selected language
             remaining = currentLang === 'en' ? [...messages.slice(1)] : [...messagesVi.slice(1)];
