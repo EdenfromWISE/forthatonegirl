@@ -5,7 +5,8 @@
 }
 
 body {
-    font-family: 'Nunito', 'Noto Sans', sans-serif;
+    /* Use Poppins as the main friendly, rounded font; fall back to Nunito and Noto Sans for Vietnamese support */
+    font-family: 'Poppins', 'Nunito', 'Noto Sans', sans-serif;
     background-color: #fff5f7;
     color: #ff6b9e;
     display: flex;
@@ -103,12 +104,12 @@ body {
 .message-container p {
     font-size: 1.75rem;
     color: #ff4181;
-    /* Use a Vietnamese-capable font for message text to avoid missing diacritics.
-       Noto Sans is robust for Vietnamese; apply Caveat only if you want a decorative title. */
-    font-family: 'Noto Sans', 'Nunito', sans-serif;
-    font-weight: 700;
-    font-style: italic; /* softer, friendly tone */
+    /* Use Poppins first for a soft friendly tone; fall back to Noto Sans when needed */
+    font-family: 'Poppins', 'Noto Sans', 'Nunito', sans-serif;
+    font-weight: 600;
+    font-style: normal;
     line-height: 1.3;
+    letter-spacing: 0.2px;
 }
 
 .message-pop {
