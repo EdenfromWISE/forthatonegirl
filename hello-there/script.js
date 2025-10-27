@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const greetButton = document.getElementById('greet-button');
     const nextMessageButton = document.getElementById('next-message-button');
     const messageText = document.getElementById('message-text');
+    const langToggle = document.getElementById('lang-toggle');
     const messages = [
         "Hey cutie, you're amazing! Keep it up! 🔥",
         "Remember, your smile brightens the day! 💖",
@@ -21,10 +22,32 @@ document.addEventListener('DOMContentLoaded', function() {
         "Never give up, gorgeous! You're stronger than you think! 💪",
     ];
     
-    const firstMessage = messages[0];
+    // Vietnamese translations for the same spirit of messages
+    const messagesVi = [
+        "Ê cưng, bạn thật tuyệt vời! Cố lên nhé! 🔥",
+        "Nhớ rằng nụ cười của bạn làm sáng ngày hôm nay! 💖",
+        "Bạn tuyệt hơn những gì bạn nghĩ! 🌺",
+        "Nhắc nhẹ rằng bạn đang làm rất tốt, xinh đẹp nhé! ✨",
+        "Bạn xứng đáng nhận được mọi hạnh phúc trên đời! 🎀",
+        "Nỗ lực của bạn có giá trị hơn bạn tưởng tượng! 🌟",
+        "Đừng quên bạn thật đặc biệt và duy nhất! 💕",
+        "Hãy tự hào về bản thân! Bạn đang làm rất tốt! 💗",
+        "Không viên ngọc nào sáng hơn bạn! 💎",
+        "Hãy tỏa sáng như vì sao của riêng bạn! ⭐",
+        "Mình tin bạn, kể cả khi bạn chưa tin bản thân! 🤗",
+        "Dành chút thời gian để trân trọng những gì bạn đã đạt được! 💓",
+        "Đừng bỏ cuộc nhé, bạn mạnh mẽ hơn bạn nghĩ! ",
+    ];
+    
+    let currentLang = 'en'; // 'en' or 'vi'
 
-    let remainingMessages = [...messages.slice(1)];
-    shuffleArray(remainingMessages);
+    const firstMessage = () => (currentLang === 'en' ? messages[0] : messagesVi[0]);
+
+    let remainingMessages = () => {
+        return currentLang === 'en' ? [...messages.slice(1)] : [...messagesVi.slice(1)];
+    };
+    let remaining = remainingMessages();
+    shuffleArray(remaining);
     
     let isFirstClick = true;
     
@@ -34,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
         secondCard.classList.add('active');
         
         // Show first message (not random)
-        messageText.textContent = firstMessage;
+        messageText.textContent = firstMessage();
         messageContainer.classList.add('message-pop');
         
         // Reset animation
@@ -53,17 +76,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to display the next message with animation
     function displayNextMessage() {
         // If we've used all messages, reshuffle and start again
-        if (remainingMessages.length === 0) {
-            // For subsequent rounds, include the first message in the shuffle
-            remainingMessages = [...messages];
-            shuffleArray(remainingMessages);
+        if (remaining.length === 0) {
+            // Recreate remaining from the currently selected language
+            remaining = currentLang === 'en' ? [...messages] : [...messagesVi];
+            shuffleArray(remaining);
         }
         
         // Get and remove the first message from the shuffled array
-        const message = remainingMessages.shift();
+        const message = remaining.shift();
         
         // Display the message with animation
-        messageText.textContent = message;
+    messageText.textContent = message;
         messageContainer.classList.add('message-pop');
         
         // Reset animation
@@ -79,5 +102,34 @@ document.addEventListener('DOMContentLoaded', function() {
             [array[i], array[j]] = [array[j], array[i]];
         }
         return array;
+    }
+
+    // Language toggle behavior
+    if (langToggle) {
+        langToggle.addEventListener('click', () => {
+            // Switch language
+            currentLang = currentLang === 'en' ? 'vi' : 'en';
+
+            // Update toggle label (show what will switch to)
+            langToggle.textContent = currentLang === 'en' ? 'VI' : 'EN';
+
+            // Update static UI text
+            document.querySelector('.title').textContent = currentLang === 'en' ? 'Hello?' : 'Chào bạn?';
+            greetButton.textContent = currentLang === 'en' ? 'Click for a surprise! ♥' : 'Nhấn để bất ngờ! ♥';
+            nextMessageButton.textContent = currentLang === 'en' ? 'Another! ♥' : 'Thêm nữa! ♥';
+            const dateBtn = document.querySelector('.date-button');
+            if (dateBtn) dateBtn.textContent = currentLang === 'en' ? "Uhhh... I have a question 👉👈" : "Ừm... Mình muốn hỏi điều này 👉👈";
+
+            // Reset messages for the selected language
+            remaining = currentLang === 'en' ? [...messages.slice(1)] : [...messagesVi.slice(1)];
+            shuffleArray(remaining);
+
+            // If second card is active, show the language-specific first message
+            if (secondCard.classList.contains('active')) {
+                messageText.textContent = currentLang === 'en' ? messages[0] : messagesVi[0];
+                messageContainer.classList.add('message-pop');
+                setTimeout(() => messageContainer.classList.remove('message-pop'), 500);
+            }
+        });
     }
 });
