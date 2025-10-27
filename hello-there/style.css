@@ -103,9 +103,12 @@ body {
 .message-container p {
     font-size: 1.75rem;
     color: #ff4181;
-    /* Use Caveat when it has glyphs, otherwise fall back to a robust sans with Vietnamese support */
-    font-family: 'Caveat', 'Noto Sans', sans-serif;
-    font-weight: bold;
+    /* Use a Vietnamese-capable font for message text to avoid missing diacritics.
+       Noto Sans is robust for Vietnamese; apply Caveat only if you want a decorative title. */
+    font-family: 'Noto Sans', 'Nunito', sans-serif;
+    font-weight: 700;
+    font-style: italic; /* softer, friendly tone */
+    line-height: 1.3;
 }
 
 .message-pop {
