@@ -5,7 +5,7 @@
 }
 
 body {
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Nunito', 'Noto Sans', sans-serif;
     background-color: #fff5f7;
     color: #ff6b9e;
     display: flex;
@@ -103,7 +103,8 @@ body {
 .message-container p {
     font-size: 1.75rem;
     color: #ff4181;
-    font-family: 'Caveat', cursive;
+    /* Use Caveat when it has glyphs, otherwise fall back to a robust sans with Vietnamese support */
+    font-family: 'Caveat', 'Noto Sans', sans-serif;
     font-weight: bold;
 }
 
